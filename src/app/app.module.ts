@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { CookieService} from 'ngx-cookie-service';
+import { BarcosComponent } from './components/barcos/barcos.component';
+import { SalidasComponent } from './components/salidas/salidas.component';
+import { PersonasComponent } from './components/personas/personas.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { CookieService} from 'ngx-cookie-service';
     SalidaComponent,
     HomeComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    PersonasComponent,
+    BarcosComponent,
+    SalidasComponent
   ],
   imports: [
     AppRoutingModule,

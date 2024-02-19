@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { UsuarioSignUp } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -8,7 +11,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class SignupComponent implements OnInit{
 
-  public usuario = {
+  usuario:UsuarioSignUp= {
     username : '',
     password : '',
     nombre : '',
@@ -16,7 +19,7 @@ export class SignupComponent implements OnInit{
     email : ''
   }
 
-  constructor (private usuarioService : UsuarioService){
+  constructor (private usuarioService : UsuarioService, private router:Router, private cookies:CookieService){
 
   }
   ngOnInit(): void {
@@ -31,8 +34,9 @@ export class SignupComponent implements OnInit{
     }
 
     this.usuarioService.addUsuario(this.usuario).subscribe(
-      (data) => {
+      (data:any) => {
         console.log(data);
+        this.cookies.set("token", data.token);
         alert("Usuario registrado con éxito")
       }, (error) => {
         console.log(error);

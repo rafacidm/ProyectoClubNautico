@@ -16,8 +16,6 @@ export class LoginComponent implements OnInit{
     password: ''
   };
 
-  token!:string;
-
   constructor (private usuarioService : UsuarioService, private router:Router, private cookies:CookieService){
 
   }
@@ -35,8 +33,7 @@ export class LoginComponent implements OnInit{
     this.usuarioService.loginUsuario(this.usuario).subscribe(
       (data:any) => {
         console.log(data);
-        this.token=data.token;
-        this.cookies.set("token", this.token);
+        this.cookies.set("token", data.token);
       }, (error) => {
         console.log(error);
         alert(error.toString());

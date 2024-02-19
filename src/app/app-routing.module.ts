@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BarcoComponent } from './barco/barco.component';
-import { PersonaComponent } from './persona/persona.component';
-import { SalidaComponent } from './salida/salida.component';
-import { HomeComponent } from './home/home.component';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
+import { BarcoComponent } from './components/barco/barco.component';
+import { PersonaComponent } from './components/persona/persona.component';
+import { SalidaComponent } from './components/salida/salida.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
     {path:'', component:HomeComponent},

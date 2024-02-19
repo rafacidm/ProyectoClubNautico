@@ -2,8 +2,8 @@
     <h2 style="text-align: left;">Registro de nuevo usuario</h2>
     <div>
         <form #miFormulario="ngForm" (ngSubmit)="formSubmit()">
-            <div class="form-group row-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.nombre" type="text" name="nombre" placeholder="Nombre" class="form-control" ngModel>
+            <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
+                <input [(ngModel)]="usuario.nombre" type="text" name="nombre" placeholder="Nombre" class="form-control">
             </div>
             <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
                 <input [(ngModel)]="usuario.apellidos" type="text" name="apellidos" placeholder="Apellidos" class="form-control" ngModel>

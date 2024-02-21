@@ -1,9 +1,66 @@
-    <tr>
-      <th scope="rowgroup">{{indice+1}}</th>
-      <td>{{personaDeLista.nombre}}</td>
-      <td>{{personaDeLista.apellidos}}</td>
-      <td>{{personaDeLista.dni}}</td>
-      <td>{{personaDeLista.telefono}}</td>
-      <td>{{personaDeLista.esSocio}}</td>
-      <td>{{personaDeLista.esPatron}}</td>
-    </tr>
+<div class="container-fluid">
+  <h3 style="text-align: center; margin-top: 10px;">
+      Registro con la información de socios y patrones del club
+  </h3>
+  <h5>Añadir una nueva persona:</h5>
+
+  <form class="form-group row" [formGroup]="formPersona">
+    <div class="form-group col-md-3">
+      <label for="nombre">Nombre</label>
+      <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control" [(ngModel)]="formNombre" formControlName="nombre">
+      <div class="alert alert-danger mt-2" [hidden]="nombre.valid || nombre.pristine">
+        El nombre es obligatorio
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="apellido">Apellidos</label>
+      <input type="text" name="apellido" id="apellido" placeholder="Apellidos" class="form-control" [(ngModel)]="formApellido" formControlName="apellidos">
+      <div class="alert alert-danger mt-2" [hidden]="apellidos.valid || apellidos.pristine">
+        Los apellidos son obligatorios
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="dni">DNI</label>
+      <input type="text" name="dni" id="dni" placeholder="DNI" class="form-control" [(ngModel)]="formDni" formControlName="dni">
+      <div class="alert alert-danger mt-2" [hidden]="dni.valid || dni.pristine">
+        <span *ngIf="dni.errors?.['required']">
+          El DNI es obligatorio
+        </span>
+        <span *ngIf="dni.errors?.['pattern']">
+          El formato del DNI no es correcto
+        </span>
+      </div>
+    </div>  
+    <div class="form-group col-md-3">
+      <label for="telefono">Teléfono</label>
+      <input type="text" name="telefono" id="telefono" placeholder="Teléfono" class="form-control" [(ngModel)]="formTelefono" formControlName="telefono">
+      <div class="alert alert-danger mt-2" [hidden]="telefono.valid || telefono.pristine">
+        <span *ngIf="telefono.errors?.['required']">
+          El teléfono es obligatorio
+        </span>
+        <span *ngIf="telefono.errors?.['pattern']">
+          El formato del teléfono no es correcto
+        </span>
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label style="margin-top: 20px;">¿Es socio?</label>
+      <input type="radio" name="esSocio" [value]="true" [(ngModel)]="formSocio" style="margin-left: 5px;" formControlName="esSocio"> Sí
+      <input type="radio" name="esSocio" [value]="false" [(ngModel)]="formSocio" style="margin-left: 5px;" formControlName="esSocio"> No
+      <div class="alert alert-danger mt-2" [hidden]="esSocio.valid || esSocio.pristine">
+        Selecciona una opción
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label style="margin-top: 20px;">¿Es patrón?</label>
+      <input type="radio" name="esPatron" [value]="true" [(ngModel)]="formPatron" style="margin-left: 5px;" formControlName="esPatron"> Sí
+      <input type="radio" name="esPatron" [value]="false" [(ngModel)]="formPatron" style="margin-left: 5px;" formControlName="esPatron"> No
+      <div class="alert alert-danger mt-2" [hidden]="esPatron.valid || esPatron.pristine">
+        Selecciona una opción
+      </div>
+    </div>  
+    <div class="col">
+      <button type="submit" class="btn btn-success" style="margin-top: 20px;" (click)="modificarPersona()" routerLink="/personas" [disabled]="formPersona.invalid">Aceptar cambios</button>
+    </div>
+  </form>
+</div>

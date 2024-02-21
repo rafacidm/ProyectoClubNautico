@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonaComponent } from './components/persona/persona.component';
 import { BarcoComponent } from './components/barco/barco.component';
 import { SalidaComponent } from './components/salida/salida.component';
@@ -33,7 +33,8 @@ import { PersonasComponent } from './components/personas/personas.component';
     AppRoutingModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     CookieService,

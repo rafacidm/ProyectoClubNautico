@@ -1,1 +1,72 @@
-<p>salidas works!</p>
+<div class="container-fluid">
+    <h3 style="text-align: center; margin-top: 10px;">
+        Registro con la información de salidas de las embarcaciones
+    </h3>
+    <h5>Añadir una nueva salida:</h5>
+    <form class="form-group row">
+        <div class="form-group col-md-3">
+          <label for="destino">Destino</label>
+          <input type="text" name="destino" id="destino" placeholder="Destino" class="form-control" [(ngModel)]="formDestino">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="fecha">Fecha</label>
+          <input type="text" name="fecha" id="fecha" placeholder="Fecha" class="form-control" [(ngModel)]="formFecha">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="hora">Hora</label>
+            <input type="text" name="hora" id="hora" placeholder="Hora" class="form-control" [(ngModel)]="formHora">
+        </div>
+    </form>
+
+    <form class="form-group row">
+      <div class="form-group col-md-3">
+        <select class="form-select" style="margin-top: 20px;">
+          <option value="" selected disabled>Selecciona patrón</option>
+          <option *ngFor="let p of personas" [ngValue]="personas">
+            {{p.nombre}} {{p.apellidos}}
+            </option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <select class="form-select" style="margin-top: 20px;">
+          <option value="" selected disabled>Selecciona embarcación</option>
+          <option *ngFor="let b of barcos" [ngValue]="barcos">
+            {{b.nombre}}
+            </option>
+        </select>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-success" (click)="addSalida()" style="margin-top: 20px;">Agregar salida</button>
+      </div>
+    </form>
+    <hr>
+    <p>Puede editar la información pulsando el botón "editar" o eliminar la entrada correspondiente.</p>
+    <br>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Barco</th>
+            <th scope="col">Patrón</th>
+            <th scope="col">Destino</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col" style="text-align: center;">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let s of salidas; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{s.barco.nombre}}</td>
+                <td>{{s.patron.dni}}</td>
+                <td>{{s.destino}}</td>
+                <td>{{s.fecha}}</td>
+                <td>{{s.hora}}</td>
+                <td style="text-align: center;">
+                  <p class="btn btn-default" style="margin-right: 10px;"><a [routerLink]="['/editarSalida', i]" style="text-decoration: none;">Editar</a></p>
+                    <p class="btn btn-danger" (click)="deleteSalida(s.id)">Eliminar</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

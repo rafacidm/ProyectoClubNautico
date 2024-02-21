@@ -1,1 +1,65 @@
-<p>barcos works!</p>
+<div class="container-fluid">
+    <h3 style="text-align: center; margin-top: 10px;">
+        Registro con la información de los barcos atracados en el Club.
+    </h3>
+    <h5>Añadir una nueva embarcación:</h5>
+    <form class="form-group row">
+        <div class="form-group col-md-3">
+          <label for="nombre">Nombre</label>
+          <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control" [(ngModel)]="formNombre">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="matricula">Matrícula</label>
+          <input type="text" name="matricula" id="matricula" placeholder="Matricula" class="form-control" [(ngModel)]="formMatricula">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="atraque">Atraque</label>
+          <input type="text" name="atraque" id="atraque" placeholder="Nº atraque" class="form-control" [(ngModel)]="formAtraque">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="cuota">Cuota</label>
+          <input type="text" name="cuota" id="cuota" placeholder="Cuota(€)" class="form-control" [(ngModel)]="formCuota">
+        </div>
+        <div class="form-group col-md-3">
+          <select class="form-select" style="margin-top: 20px;">
+            <option value="" selected disabled>Elige un propietario</option>
+            <option *ngFor="let p of personas" [ngValue]="personas">
+              {{p.nombre}} {{p.apellidos}}
+              </option>
+          </select>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-success" (click)="addBarco()" style="margin-top: 20px;">Agregar barco</button>
+        </div>
+      </form>
+    <hr>
+    <p>Puede editar la información pulsando el botón "editar" o eliminar la entrada correspondiente.</p>
+    <br>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Matricula</th>
+            <th scope="col">Atraque</th>
+            <th scope="col">Cuota</th>
+            <th scope="col">Propietario</th>
+            <th scope="col" style="text-align: center;">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let b of barcos; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{b.nombre}}</td>
+                <td>{{b.matricula}}</td>
+                <td>{{b.atraque}}</td>
+                <td>{{b.cuota}}</td>
+                <td>{{b.persona.nombre}} {{b.persona.apellidos}}</td>
+                <td style="text-align: center;">
+                    <p class="btn btn-default" style="margin-right: 10px;"><a [routerLink]="['/editarBarco', i]" style="text-decoration: none;">Editar</a></p>
+                    <p class="btn btn-danger" (click)="deleteBarco(b)">Eliminar</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

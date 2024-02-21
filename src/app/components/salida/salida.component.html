@@ -1,1 +1,41 @@
-<p>salida works!</p>
+<div class="container-fluid">
+    <h3 style="text-align: center; margin-top: 10px;">
+        Registro con la información de salidas de las embarcaciones
+    </h3>
+    <h5>Añadir una nueva salida:</h5>
+    <form class="form-group row">
+        <div class="form-group col-md-3">
+          <label for="destino">Destino</label>
+          <input type="text" name="destino" id="destino" placeholder="Destino" class="form-control" [(ngModel)]="formDestino">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="fecha">Fecha</label>
+          <input type="text" name="fecha" id="fecha" placeholder="Fecha" class="form-control" [(ngModel)]="formFecha">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="hora">Hora</label>
+            <input type="text" name="hora" id="hora" placeholder="Hora" class="form-control" [(ngModel)]="formHora">
+        </div>
+    </form>
+    <form class="form-group row">
+      <div class="form-group col-md-3">
+        <select class="form-select" style="margin-top: 20px;">
+          <option value="" selected disabled>{{formPatron.nombre}} {{formPatron.apellidos}}</option>
+          <option *ngFor="let p of personas" [ngValue]="personas">
+            {{p.nombre}} {{p.apellidos}}
+            </option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <select class="form-select" style="margin-top: 20px;">
+          <option value="" selected disabled>{{formBarco.nombre}}</option>
+          <option *ngFor="let b of barcos" [ngValue]="barcos">
+            {{b.nombre}}
+            </option>
+        </select>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-success" style="margin-top: 20px;">Aceptar cambios</button>
+      </div>
+    </form>
+</div>

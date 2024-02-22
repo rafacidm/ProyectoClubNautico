@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Persona } from '../../models/persona.model';
 import { PersonaService } from 'src/app/services/persona.service';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-personas',
@@ -19,7 +21,9 @@ export class PersonasComponent implements OnInit{
   formSocio!:boolean
   formPatron!:boolean
   
-  constructor(private personaService:PersonaService){
+  constructor(private personaService:PersonaService,
+    private messageService:MessageService,
+    private usuarioService:UsuarioService){
     this.personas=this.personaService.personas;
   }
   
@@ -29,9 +33,17 @@ export class PersonasComponent implements OnInit{
 
     addPersona(){
       let miPersona = new Persona(0, this.formNombre, this.formApellido, this.formDni, this.formTelefono, this.formSocio, this.formPatron);
-      this.personaService.addPersona(miPersona);
-      this.getAllPersonas();
-    }
+      this.personaService.addPersona(miPersona).subscribe(
+        resp => {
+          console.log("Se ha guardado la persona: "  + resp),
+          this.getAllPersonas();
+          this.formPersona.reset();
+        },
+        error => {
+          console.log(Object.values(error).flatMap.toString()),
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: Object.values(error).toString(), life:2000});
+        });
+        }
 
     getAllPersonas(){
       this.personaService.getAllPersonas().subscribe(
@@ -44,7 +56,11 @@ export class PersonasComponent implements OnInit{
 
     deletePersona(persona:Persona){
       if(confirm("¿Desea eliminar a "+ persona.nombre + " " + persona.apellidos +" del registro?")){
-        this.personaService.deletePersona(persona.id);
+        this.personaService.deletePersona(persona.id).subscribe(
+          response => {
+            console.log("Se ha eliminado: "  + response),
+            this.getAllPersonas();
+          });
       };
     }
 
@@ -74,5 +90,9 @@ export class PersonasComponent implements OnInit{
     }
     get esPatron(){
       return this.formPersona.get('esPatron') as FormControl;
+    }
+
+    logueado(){
+      return this.usuarioService.estaLogueado();
     }
 }

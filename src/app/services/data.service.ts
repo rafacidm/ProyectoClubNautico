@@ -5,7 +5,6 @@ import baseUrl from './helper';
 import { Persona } from '../models/persona.model';
 import { Barco } from '../models/barco.model';
 import { Salida } from '../models/salida.model';
-import { PersonaService } from './persona.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,23 +30,20 @@ export class DataService {
   crearPersona(persona:Persona){
     const token = this.usuarioService.getToken();
     const headers = { 'Authorization': 'Bearer '+ token }
-    return this.httpClient.post(`${baseUrl}/v0/personas`, persona, {headers}).subscribe(
-      response => console.log("Se ha guardado la persona: "  + response)
-    );
+    return this.httpClient.post(`${baseUrl}/v0/personas`, persona, {headers});
   }
 
   borrarPersona(id:number){
     const token = this.usuarioService.getToken();
     const headers = { 'Authorization': 'Bearer '+ token }
-    return this.httpClient.delete(`${baseUrl}/v0/personas/`+id, { headers }).subscribe(
-      response => console.log("Se ha eliminado: "  + response));
+    console.log(id);
+    return this.httpClient.delete(`${baseUrl}/v0/personas/`+id, { headers });
   }
 
   modificarPersona(persona:Persona){
     const token = this.usuarioService.getToken();
     const headers = { 'Authorization': 'Bearer '+ token }
-    return this.httpClient.put(`${baseUrl}/v0/personas/`+persona.id, persona, { headers }).subscribe(
-      response => console.log("Se ha modificado: "  + response));
+    return this.httpClient.put(`${baseUrl}/v0/personas/`+persona.id, persona, { headers })
   }
 
   getPersonasSinBarco(){
@@ -78,19 +74,19 @@ export class DataService {
   crearBarco(barco:Barco){
     const token = this.usuarioService.getToken();
     const headers = { 'Authorization': 'Bearer '+ token }
-    return this.httpClient.post(`${baseUrl}/v0/barcos`, barco, {headers}).subscribe(
-      response => console.log("Se ha guardado: "  + response),
-      error => console.log("Error: " + error)
-    );
+    return this.httpClient.post(`${baseUrl}/v0/barcos`, barco, {headers})
   }
 
   borrarBarco(id:number){
     const token = this.usuarioService.getToken();
     const headers = { 'Authorization': 'Bearer '+ token }
-    return this.httpClient.delete(`${baseUrl}/v0/barcos/`+id, { headers }).subscribe(
-      response => console.log("Se ha eliminado: "  + response),
-      error => console.log("Error: " + error)
-    );
+    return this.httpClient.delete(`${baseUrl}/v0/barcos/`+id, { headers })
+  }
+
+  modificarBarco(barco: Barco){
+    const token = this.usuarioService.getToken();
+    const headers = { 'Authorization': 'Bearer '+ token }
+    return this.httpClient.put(`${baseUrl}/v0/barcos/`+barco.id, barco, { headers });
   }
 
 
@@ -109,18 +105,19 @@ export class DataService {
   crearSalida(salida:Salida){
     const token = this.usuarioService.getToken();
     const headers = { 'Authorization': 'Bearer '+ token }
-    return this.httpClient.post(`${baseUrl}/v0/salidas`, salida, {headers}).subscribe(
-      response => console.log("Se ha guardado: "  + response),
-      error => console.log("Error: " + error)
-    );
+    return this.httpClient.post(`${baseUrl}/v0/salidas`, salida, {headers})
   }
 
   borrarSalida(id:number){
     const token = this.usuarioService.getToken();
     const headers = { 'Authorization': 'Bearer '+ token }
-    return this.httpClient.delete(`${baseUrl}/v0/salidas/`+id, { headers }).subscribe(
-      response => console.log("Se ha eliminado: "  + response),
-      error => console.log("Error: " + error)
-    );
+    return this.httpClient.delete(`${baseUrl}/v0/salidas/`+id, { headers })
+  }
+
+  modificarSalida(salida:Salida){
+    const token = this.usuarioService.getToken();
+    const headers = { 'Authorization': 'Bearer '+ token }
+    return this.httpClient.put(`${baseUrl}/v0/salidas/`+salida.id, salida, { headers }).subscribe(
+      response => console.log("Se ha modificado: "  + response));
   }
 }

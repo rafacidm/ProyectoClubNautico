@@ -36,7 +36,7 @@ export class PersonaService {
     }
 
     addPersona(persona:Persona){
-      this.dataService.crearPersona(persona);
+      return this.dataService.crearPersona(persona);
     }
     
     deletePersona(id:number){

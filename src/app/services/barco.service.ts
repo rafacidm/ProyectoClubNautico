@@ -29,10 +29,14 @@ export class BarcoService {
   }
 
   addBarco(barco:Barco){
-    this.dataService.crearBarco(barco);
+    return this.dataService.crearBarco(barco);
   }
 
   deleteBarco(id:number){
-    this.dataService.borrarBarco(id);
+    return this.dataService.borrarBarco(id);
+  }
+
+  putBarco(barco:Barco){
+    return this.dataService.modificarBarco(barco);
   }
 }

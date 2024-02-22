@@ -15,6 +15,14 @@ import { CookieService} from 'ngx-cookie-service';
 import { BarcosComponent } from './components/barcos/barcos.component';
 import { SalidasComponent } from './components/salidas/salidas.component';
 import { PersonasComponent } from './components/personas/personas.component';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PersonaService } from './services/persona.service';
+import { BarcoService } from './services/barco.service';
+import { UsuarioService } from './services/usuario.service';
+import { SalidaService } from './services/salida.service';
 
 @NgModule({
   declarations: [
@@ -34,10 +42,18 @@ import { PersonasComponent } from './components/personas/personas.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastModule,
+    MessagesModule,
+    BrowserAnimationsModule
   ],
   providers: [
     CookieService,
+    MessageService,
+    PersonaService,
+    BarcoService,
+    UsuarioService,
+    SalidaService
   ],
   bootstrap: [AppComponent]
 })

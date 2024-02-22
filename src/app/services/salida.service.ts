@@ -28,10 +28,14 @@ export class SalidaService {
   }
 
   addSalida(salida:Salida){
-    this.dataService.crearSalida(salida);
+    return this.dataService.crearSalida(salida);
   }
 
   deleteSalida(id:number){
-    this.dataService.borrarSalida(id);
+    return this.dataService.borrarSalida(id);
+  }
+
+  putSalida(salida:Salida){
+    this.dataService.modificarSalida(salida);
   }
 }

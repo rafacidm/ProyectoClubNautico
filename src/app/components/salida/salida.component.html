@@ -1,41 +1,62 @@
 <div class="container-fluid">
-    <h3 style="text-align: center; margin-top: 10px;">
-        Registro con la información de salidas de las embarcaciones
-    </h3>
-    <h5>Añadir una nueva salida:</h5>
-    <form class="form-group row">
-        <div class="form-group col-md-3">
-          <label for="destino">Destino</label>
-          <input type="text" name="destino" id="destino" placeholder="Destino" class="form-control" [(ngModel)]="formDestino">
-        </div>
-        <div class="form-group col-md-3">
-          <label for="fecha">Fecha</label>
-          <input type="text" name="fecha" id="fecha" placeholder="Fecha" class="form-control" [(ngModel)]="formFecha">
-        </div>
-        <div class="form-group col-md-3">
-            <label for="hora">Hora</label>
-            <input type="text" name="hora" id="hora" placeholder="Hora" class="form-control" [(ngModel)]="formHora">
-        </div>
-    </form>
-    <form class="form-group row">
+  <h5 style="margin-top: 10px;">Edita la información:</h5>
+    
+    <form class="form-group row" [formGroup]="formSalida">
       <div class="form-group col-md-3">
-        <select class="form-select" style="margin-top: 20px;">
-          <option value="" selected disabled>{{formPatron.nombre}} {{formPatron.apellidos}}</option>
-          <option *ngFor="let p of personas" [ngValue]="personas">
-            {{p.nombre}} {{p.apellidos}}
-            </option>
-        </select>
+        <label for="destino">Destino</label>
+        <input type="text" name="destino" id="destino" placeholder="Destino" class="form-control" [(ngModel)]="formDestino" formControlName="destino">
+        <div class="alert alert-danger mt-2" [hidden]="destino.valid || destino.pristine">
+          Introduzca un destino
+        </div>
       </div>
       <div class="form-group col-md-3">
-        <select class="form-select" style="margin-top: 20px;">
-          <option value="" selected disabled>{{formBarco.nombre}}</option>
-          <option *ngFor="let b of barcos" [ngValue]="barcos">
-            {{b.nombre}}
-            </option>
-        </select>
+        <label for="fecha">Fecha</label>
+        <input type="text" name="fecha" id="fecha" placeholder="Fecha" class="form-control" [(ngModel)]="formFecha" formControlName="fecha">
+        <div class="alert alert-danger mt-2" [hidden]="fecha.valid || fecha.pristine">
+          <span *ngIf="fecha.errors?.['required']">
+            Introduzca hora de salida
+          </span>
+          <span *ngIf="fecha.errors?.['pattern']">
+            El formato de la fecha no es correcto (AAAA-MM-DD)
+          </span>
+        </div>
       </div>
-      <div class="col">
-        <button type="submit" class="btn btn-success" style="margin-top: 20px;">Aceptar cambios</button>
-      </div>
+      <div class="form-group col-md-3">
+          <label for="hora">Hora</label>
+          <input type="text" name="hora" id="hora" placeholder="Hora" class="form-control" [(ngModel)]="formHora" formControlName="hora">
+          <div class="alert alert-danger mt-2" [hidden]="hora.valid || hora.pristine">
+            <span *ngIf="hora.errors?.['required']">
+              Introduzca hora de salida
+            </span>
+            <span *ngIf="hora.errors?.['pattern']">
+              El formato de la hora no es correcto (HH:MM:SS)
+            </span>
+          </div>
+        </div>
+    <div class="form-group col-md-3">
+      <select class="form-select" style="margin-top: 20px;" [(ngModel)]="formPatron" formControlName="patron">
+        <option value="" selected disabled>{{formPatron.nombre}} {{formPatron.apellidos}}</option>
+        <option *ngFor="let p of personas" [ngValue]="p">
+          {{p.nombre}} {{p.apellidos}}
+          </option>
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <select class="form-select" style="margin-top: 20px;" [(ngModel)]="formBarco" formControlName="barco">
+        <option value="" selected disabled>{{formBarco.nombre}}</option>
+        <option *ngFor="let b of barcos" [ngValue]="b">
+          {{b.nombre}}
+          </option>
+      </select>
+    </div>
+        <div class="col col-md-3">
+          <button type="submit" class="btn btn-success" style="margin-top: 20px;" [disabled]="formSalida.invalid" (click)="modificarSalida()">Aceptar cambios</button>
+        </div>
+        <div class="col col-md-3">
+          <button class="btn btn-warning" style="margin-top: 20px;" (click)="descartar()">Descartar cambios</button>
+        </div>
+        <div class="col col-md-3">
+          <button class="btn btn-light" style="margin-top: 20px;" (click)="volver()">Volver</button>
+        </div>
     </form>
 </div>

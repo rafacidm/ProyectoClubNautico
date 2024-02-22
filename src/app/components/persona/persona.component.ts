@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Persona } from '../../models/persona.model';
 import { PersonaService } from 'src/app/services/persona.service';
-import { ActivatedRoute, Route, RouterModule } from '@angular/router';
+import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-persona',
@@ -23,6 +24,35 @@ export class PersonaComponent implements OnInit{
 
   ngOnInit(): void {
     this.index=this.route.snapshot.params['id'];
+    this.getInfoOriginal();
+  }
+
+  constructor(private personaService:PersonaService, private route:ActivatedRoute, private router:Router, private messageService:MessageService){
+
+  }
+
+  modificarPersona(){
+    let personaMod = new Persona(this.persona.id, this.formNombre, this.formApellido, this.formDni, this.formTelefono, this.formSocio, this.formPatron);
+    this.personaService.putPersona(personaMod).subscribe(
+      response => {
+        console.log("Se ha modificado: "  + response),
+        this.router.navigate(["/personas"])
+      },
+      error => {
+        this.messageService.add({severity:'error', summary:'ERROR', detail: 'hola'});
+      }
+      );
+  }
+
+  volver(){
+    this.router.navigate(["/personas"]);
+  }
+
+  descartar(){
+    this.getInfoOriginal();
+  }
+
+  getInfoOriginal(){
     this.persona = this.personaService.getPersona(this.index);
     this.formNombre=this.persona.nombre;
     this.formApellido=this.persona.apellidos;
@@ -30,15 +60,6 @@ export class PersonaComponent implements OnInit{
     this.formTelefono=this.persona.telefono;
     this.formSocio=this.persona.esSocio;
     this.formPatron=this.persona.esPatron;
-  }
-
-  constructor(private personaService:PersonaService, private route:ActivatedRoute, private router:RouterModule){
-
-  }
-
-  modificarPersona(){
-    let personaMod = new Persona(this.persona.id, this.formNombre, this.formApellido, this.formDni, this.formTelefono, this.formSocio, this.formPatron);
-    this.personaService.putPersona(personaMod);
   }
 
   formPersona = new FormGroup({

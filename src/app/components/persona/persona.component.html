@@ -1,8 +1,5 @@
 <div class="container-fluid">
-  <h3 style="text-align: center; margin-top: 10px;">
-      Registro con la información de socios y patrones del club
-  </h3>
-  <h5>Añadir una nueva persona:</h5>
+  <h5 style="margin-top: 10px;">Edita la información:</h5>
 
   <form class="form-group row" [formGroup]="formPersona">
     <div class="form-group col-md-3">
@@ -59,8 +56,15 @@
         Selecciona una opción
       </div>
     </div>  
-    <div class="col">
-      <button type="submit" class="btn btn-success" style="margin-top: 20px;" (click)="modificarPersona()" routerLink="/personas" [disabled]="formPersona.invalid">Aceptar cambios</button>
+    <div class="col col-md-3">
+      <button type="submit" class="btn btn-success" style="margin-top: 20px;" (click)="modificarPersona()" [disabled]="formPersona.invalid">Aceptar cambios</button>
+    </div>
+    <div class="col col-md-3">
+      <button class="btn btn-warning" style="margin-top: 20px;" (click)="descartar()">Descartar cambios</button>
+    </div>
+    <div class="col col-md-3">
+      <button class="btn btn-light" style="margin-top: 20px;" (click)="volver()">Volver</button>
     </div>
   </form>
 </div>
+<p-toast></p-toast>

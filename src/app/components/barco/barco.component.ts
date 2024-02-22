@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Barco } from 'src/app/models/barco.model';
 import { Persona } from 'src/app/models/persona.model';
 import { BarcoService } from 'src/app/services/barco.service';
@@ -20,16 +22,12 @@ export class BarcoComponent implements OnInit{
 
   index!:number;
 
+  barco!:Barco;
   personas:Persona[] = [];
 
   ngOnInit(): void {
     this.index=this.route.snapshot.params['id'];
-    let barco:Barco = this.barcoService.getBarco(this.index);
-    this.formAtraque=barco.atraque;
-    this.formCuota=barco.cuota;
-    this.formMatricula=barco.matricula;
-    this.formNombre=barco.nombre;
-    this.formPropietario=barco.persona;
+    this.getInfoOriginal();
 
     this.personaService.getAllPersonasSinBarco().subscribe(
       misPersonas => {
@@ -39,11 +37,61 @@ export class BarcoComponent implements OnInit{
     )
   }
 
-  constructor(private route:ActivatedRoute, private barcoService:BarcoService, private personaService:PersonaService){
+  constructor(private route:ActivatedRoute, private barcoService:BarcoService, private personaService:PersonaService, private router:Router, private messageService:MessageService){
 
   }
 
-  @Input() barcoDeLista!:Barco;
-  @Input() indice!:number;
+  modificarBarco(){
+    let barcoMod = new Barco(this.barco.id, this.formNombre, this.formMatricula, this.formAtraque, this.formCuota, this.formPropietario);
+    this.barcoService.putBarco(barcoMod).subscribe(
+      response => {
+        console.log("Se ha modificado: "  + response),
+        this.router.navigate(["/barcos"]);
+      },
+      error => {
+        this.messageService.add({severity:'error', summary:'ERROR', detail: 'hola'});
+      }
+    );
+  }
 
+  volver(){
+    this.router.navigate(["/barcos"]);
+  }
+
+  descartar(){
+    this.getInfoOriginal();
+  }
+
+  getInfoOriginal(){
+    this.barco = this.barcoService.getBarco(this.index);
+    this.formAtraque=this.barco.atraque;
+    this.formCuota=this.barco.cuota;
+    this.formMatricula=this.barco.matricula;
+    this.formNombre=this.barco.nombre;
+    this.formPropietario=this.barco.persona;
+  }
+
+  formBarco = new FormGroup({
+    'matricula' : new FormControl('', [Validators.required, Validators.pattern('[A-Z]{2}[0-9]{6}')]),
+    'nombre' : new FormControl('', Validators.required),
+    'atraque' : new FormControl('', Validators.required),
+    'cuota' : new FormControl('', Validators.required),
+    'propietario' : new FormControl('', Validators.required)
+  })
+
+  get matricula(){
+    return this.formBarco.get('matricula') as FormControl;
+  }
+  get nombre(){
+    return this.formBarco.get('nombre') as FormControl;
+  }
+  get atraque(){
+    return this.formBarco.get('atraque') as FormControl;
+  }
+  get cuota(){
+    return this.formBarco.get('cuota') as FormControl;
+  }
+  get propietario(){
+    return this.formBarco.get('propietario') as FormControl;
+  }
 }

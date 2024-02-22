@@ -1,7 +1,9 @@
+<p-toast position="top-right"></p-toast>
 <div class="container-fluid">
     <h3 style="text-align: center; margin-top: 10px;">
-        Registro con la información de socios y patrones del club
+        Registro con la información de socios y patrones del Club
     </h3>
+    <div *ngIf="logueado()">
     <h5>Añadir una nueva persona:</h5>
     <form class="form-group row" [formGroup]="formPersona">
       <div class="form-group col-md-3">
@@ -63,7 +65,9 @@
         </div>
       </form>
     <hr>
-    <p>Puede editar la información pulsando el botón "editar" o eliminar la entrada correspondiente.</p>
+  </div>
+
+    <p>Puede modificar la información pulsando el botón "editar" o eliminar la entrada correspondiente.</p>
     <br>
     <table class="table table-striped">
         <thead>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UsuarioSignUp } from 'src/app/models/usuario.model';
@@ -43,5 +44,29 @@ export class SignupComponent implements OnInit{
         alert("Ha ocurrido un error en el registro")
       }
     )
+  }
+
+  formSignUp = new FormGroup({
+    'nombre' : new FormControl('', Validators.required),
+    'apellidos' : new FormControl('', Validators.required),
+    'username' : new FormControl('', Validators.required),
+    'email' : new FormControl('', Validators.required),
+    'password' : new FormControl('', Validators.required)
+  })
+
+  get nombre(){
+    return this.formSignUp.get('nombre') as FormControl;
+  }
+  get apellidos(){
+    return this.formSignUp.get('apellidos') as FormControl;
+  }
+  get username(){
+    return this.formSignUp.get('username') as FormControl;
+  }
+  get email(){
+    return this.formSignUp.get('email') as FormControl;
+  }
+  get password(){
+    return this.formSignUp.get('password') as FormControl;
   }
 }

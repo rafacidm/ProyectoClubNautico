@@ -1,24 +1,39 @@
 <div class="container-fluid" style="text-align: center;">
     <h2 style="text-align: left;">Registro de nuevo usuario</h2>
     <div>
-        <form #miFormulario="ngForm" (ngSubmit)="formSubmit()">
+        <form #miFormulario="ngForm" [formGroup]="formSignUp">
             <div class="form-group col-md-3" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.nombre" type="text" name="nombre" placeholder="Nombre" class="form-control">
+                <input [(ngModel)]="usuario.nombre" type="text" name="nombre" placeholder="Nombre" class="form-control" formControlName="nombre">
+                <div class="alert alert-danger mt-2" [hidden]="nombre.valid || nombre.pristine">
+                    El nombre es obligatorio
+                  </div>
             </div>
             <div class="form-group col-md-3" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.apellidos" type="text" name="apellidos" placeholder="Apellidos" class="form-control" ngModel>
+                <input [(ngModel)]="usuario.apellidos" type="text" name="apellidos" placeholder="Apellidos" class="form-control" ngModel formControlName="apellidos">
+                <div class="alert alert-danger mt-2" [hidden]="apellidos.valid || apellidos.pristine">
+                    Los apellidos son obligatorios
+                  </div>
             </div>
             <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.username" type="text" name="username" placeholder="Nombre de usuario" class="form-control" ngModel>
+                <input [(ngModel)]="usuario.username" type="text" name="username" placeholder="Nombre de usuario" class="form-control" ngModel formControlName="username">
+                <div class="alert alert-danger mt-2" [hidden]="username.valid || username.pristine">
+                    El nombre de usuario es obligatorio
+                  </div>
             </div>
             <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.email" type="email" name="email" placeholder="usuario@email.com" class="form-control" ngModel>
+                <input [(ngModel)]="usuario.email" type="email" name="email" placeholder="usuario@email.com" class="form-control" ngModel formControlName="email">
+                <div class="alert alert-danger mt-2" [hidden]="email.valid || email.pristine">
+                    El email es obligatorio
+                  </div>
             </div>
             <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.password" type="password" name="password" placeholder="Contraseña" class="form-control" ngModel>
+                <input [(ngModel)]="usuario.password" type="password" name="password" placeholder="Contraseña" class="form-control" ngModel formControlName="password">
+                <div class="alert alert-danger mt-2" [hidden]="password.valid || password.pristine">
+                    La contraseña es obligatoria
+                  </div>
             </div>
             <div style="margin-top: 20px; margin-left: 10px;">
-                <button type="submit" class="btn btn-success">Registrarse</button>
+                <button type="submit" class="btn btn-success" (click)="formSubmit()" [disabled]="formSignUp.invalid">Registrarse</button>
             </div>
         </form>
     </div>

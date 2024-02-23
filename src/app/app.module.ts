@@ -23,6 +23,8 @@ import { PersonaService } from './services/persona.service';
 import { BarcoService } from './services/barco.service';
 import { UsuarioService } from './services/usuario.service';
 import { SalidaService } from './services/salida.service';
+import { guardianLogin } from './components/login/login-guard';
+import { RutaNoEncontradaComponent } from './components/ruta-no-encontrada/ruta-no-encontrada.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { SalidaService } from './services/salida.service';
     SignupComponent,
     PersonasComponent,
     BarcosComponent,
-    SalidasComponent
+    SalidasComponent,
+    RutaNoEncontradaComponent
   ],
   imports: [
     AppRoutingModule,
@@ -53,7 +56,8 @@ import { SalidaService } from './services/salida.service';
     PersonaService,
     BarcoService,
     UsuarioService,
-    SalidaService
+    SalidaService,
+    guardianLogin
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { Barco } from 'src/app/models/barco.model';
 import { Persona } from 'src/app/models/persona.model';
 import { BarcoService } from 'src/app/services/barco.service';
 import { PersonaService } from 'src/app/services/persona.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-barcos',
@@ -22,7 +24,10 @@ export class BarcosComponent implements OnInit{
   formCuota!:number;
   formPropietario!:Persona;
 
-  constructor(private barcoService:BarcoService, private personaService:PersonaService, private messageService:MessageService){
+  error!:HttpErrorResponse;
+  mensaje!:string;
+
+  constructor(private barcoService:BarcoService, private personaService:PersonaService,private usuarioService:UsuarioService, private messageService:MessageService){
     this.barcos = this.barcoService.barcos;
   }
 
@@ -60,11 +65,10 @@ export class BarcosComponent implements OnInit{
         this.getPersonasSinBarco();
         this.formBarco.reset();
       },
-      error => {
-        console.log("Error: " + error),
-        this.messageService.add({severity:'error', summary:'ERROR', detail: 'hola'});
-      }
-    );
+      e  => {
+        this.error=e,
+        this.mostrarMensajeError(e.error.mensaje)
+      });
   }
 
   deleteBarco(barco:Barco){
@@ -78,6 +82,11 @@ export class BarcosComponent implements OnInit{
         error => console.log("Error: " + error)
       )
     };
+  }
+
+  mostrarMensajeError(msj:String){
+    this.mensaje = msj.split('[')[1].split('for key')[0];
+    this.messageService.add({severity: 'error', summary: 'Error', detail: this.mensaje, life:2000});
   }
 
   formBarco = new FormGroup({
@@ -102,5 +111,9 @@ export class BarcosComponent implements OnInit{
   }
   get propietario(){
     return this.formBarco.get('propietario') as FormControl;
+  }
+
+  logueado(){
+    return this.usuarioService.estaLogueado();
   }
 }

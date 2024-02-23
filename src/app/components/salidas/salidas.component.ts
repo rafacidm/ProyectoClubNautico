@@ -7,6 +7,7 @@ import { Salida } from 'src/app/models/salida.model';
 import { BarcoService } from 'src/app/services/barco.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { SalidaService } from 'src/app/services/salida.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-salidas',
@@ -25,7 +26,7 @@ export class SalidasComponent implements OnInit {
   formFecha!:Date;
   formHora!:Time;
 
-  constructor(private salidaService:SalidaService, private personaService:PersonaService, private barcoService:BarcoService){
+  constructor(private salidaService:SalidaService, private personaService:PersonaService, private barcoService:BarcoService, private usuarioService:UsuarioService){
     this.salidas=this.salidaService.salidas;
   }
 
@@ -114,4 +115,7 @@ export class SalidasComponent implements OnInit {
     return this.formSalida.get('hora') as FormControl;
   }
 
+  logueado(){
+    return this.usuarioService.estaLogueado();
+  }
 }

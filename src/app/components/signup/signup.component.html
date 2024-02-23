@@ -1,36 +1,77 @@
+<p-toast [style]="{marginTop: '50px'}"></p-toast>
 <div class="container-fluid" style="text-align: center;">
-    <h2 style="text-align: left;">Registro de nuevo usuario</h2>
+    <h2 style="text-align: left; margin-top: 20px;">Registro de nuevo usuario</h2>
     <div>
         <form #miFormulario="ngForm" [formGroup]="formSignUp">
-            <div class="form-group col-md-3" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.nombre" type="text" name="nombre" placeholder="Nombre" class="form-control" formControlName="nombre">
-                <div class="alert alert-danger mt-2" [hidden]="nombre.valid || nombre.pristine">
-                    El nombre es obligatorio
-                  </div>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-4" style="margin-top: 20px; margin-left: 10px;">
+                    <label for="nombre">Nombre</label>
+                    <input [(ngModel)]="usuario.nombre" type="text" name="nombre" placeholder="Nombre" class="form-control" formControlName="nombre">
+                    <div class="alert alert-danger mt-2" [hidden]="nombre.valid || nombre.pristine">
+                        <span *ngIf="nombre.errors?.['required']">
+                            El nombre es obligatorio
+                        </span>
+                        <span *ngIf="nombre.errors?.['minlength']">
+                            El nombre debe tener, al menos, 3 caracteres
+                        </span>
+                        <span *ngIf="nombre.errors?.['maxlength']">
+                            El nombre no puede tener más de 30 caracteres
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group col-md-4" style="margin-top: 20px; margin-left: 10px;">
+                    <label for="apellidos">Apellidos</label>
+                    <input [(ngModel)]="usuario.apellidos" type="text" name="apellidos" placeholder="Apellidos" class="form-control" ngModel formControlName="apellidos">
+                    <div class="alert alert-danger mt-2" [hidden]="apellidos.valid || apellidos.pristine">
+                        <span *ngIf="apellidos.errors?.['required']">
+                            Los apellidos son obligatorios
+                        </span>
+                        <span *ngIf="apellidos.errors?.['minlength']">
+                            Los apellidos deben tener, al menos, 3 caracteres
+                        </span>
+                        <span *ngIf="apellidos.errors?.['maxlength']">
+                            Los apellidos no pueden tener más de 50 caracteres
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-3" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.apellidos" type="text" name="apellidos" placeholder="Apellidos" class="form-control" ngModel formControlName="apellidos">
-                <div class="alert alert-danger mt-2" [hidden]="apellidos.valid || apellidos.pristine">
-                    Los apellidos son obligatorios
-                  </div>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-4" style="margin-top: 20px; margin-left: 10px;">
+                    <label for="username">Nombre de usuario</label>
+                    <input [(ngModel)]="usuario.username" type="text" name="username" placeholder="Nombre de usuario" class="form-control" ngModel formControlName="username">
+                    <div class="alert alert-danger mt-2" [hidden]="username.valid || username.pristine">
+                        <span *ngIf="username.errors?.['required']">
+                            El nombre de usuario es obligatorio
+                        </span>
+                        <span *ngIf="username.errors?.['minlength']">
+                            El nombre de usuario debe tener, al menos, 3 caracteres
+                        </span>
+                        <span *ngIf="username.errors?.['maxlength']">
+                            El nombre de usuario no puede tener más de 20 caracteres
+                        </span>
+                      </div>
+                </div>
+                <div class="form-group col-md-4" style="margin-top: 20px; margin-left: 10px;">
+                    <label for="email">Correo electrónico</label>
+                    <input [(ngModel)]="usuario.email" type="email" name="email" placeholder="usuario@email.com" class="form-control" ngModel formControlName="email">
+                    <div class="alert alert-danger mt-2" [hidden]="email.valid || email.pristine">
+                        <span *ngIf="email.errors?.['required']">
+                          El email es obligatorio
+                        </span>
+                        <span *ngIf="email.errors?.['email']">
+                          Introduzca un email válido
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.username" type="text" name="username" placeholder="Nombre de usuario" class="form-control" ngModel formControlName="username">
-                <div class="alert alert-danger mt-2" [hidden]="username.valid || username.pristine">
-                    El nombre de usuario es obligatorio
-                  </div>
-            </div>
-            <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.email" type="email" name="email" placeholder="usuario@email.com" class="form-control" ngModel formControlName="email">
-                <div class="alert alert-danger mt-2" [hidden]="email.valid || email.pristine">
-                    El email es obligatorio
-                  </div>
-            </div>
-            <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.password" type="password" name="password" placeholder="Contraseña" class="form-control" ngModel formControlName="password">
-                <div class="alert alert-danger mt-2" [hidden]="password.valid || password.pristine">
-                    La contraseña es obligatoria
-                  </div>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-4" style="margin-top: 20px; margin-left: 10px;">
+                    <label for="password">Contraseña</label>
+                    <input [(ngModel)]="usuario.password" type="password" name="password" placeholder="Contraseña" class="form-control" ngModel formControlName="password">
+                    <div class="alert alert-danger mt-2" [hidden]="password.valid || password.pristine">
+                        La contraseña es obligatoria
+                      </div>
+                </div>
             </div>
             <div style="margin-top: 20px; margin-left: 10px;">
                 <button type="submit" class="btn btn-success" (click)="formSubmit()" [disabled]="formSignUp.invalid">Registrarse</button>

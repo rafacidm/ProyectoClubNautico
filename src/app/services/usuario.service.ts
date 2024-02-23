@@ -23,12 +23,15 @@ export class UsuarioService {
     return this.cookies.get("token");
   }
 
+  getUsername(){
+    return this.cookies.get("username");
+  }
+
   estaLogueado(){
     return this.cookies.get("token") != "" ? true : false;
   }
 
   public logout(){
-    this.cookies.set("token", "");
-    window.location.reload();
+    this.cookies.deleteAll();
   }
 }

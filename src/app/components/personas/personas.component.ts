@@ -4,6 +4,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-personas',
@@ -20,6 +21,9 @@ export class PersonasComponent implements OnInit{
   formTelefono!:string;
   formSocio!:boolean
   formPatron!:boolean
+
+  error!:HttpErrorResponse;
+  mensaje!:string;
   
   constructor(private personaService:PersonaService,
     private messageService:MessageService,
@@ -39,9 +43,9 @@ export class PersonasComponent implements OnInit{
           this.getAllPersonas();
           this.formPersona.reset();
         },
-        error => {
-          console.log(Object.values(error).flatMap.toString()),
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: Object.values(error).toString(), life:2000});
+        e  => {
+          this.error=e,
+          this.mostrarMensajeError(e.error.mensaje)
         });
         }
 
@@ -62,6 +66,11 @@ export class PersonasComponent implements OnInit{
             this.getAllPersonas();
           });
       };
+    }
+
+    mostrarMensajeError(msj:String){
+      this.mensaje = msj.split('[')[1].split('for key')[0];
+      this.messageService.add({severity: 'error', summary: 'Error', detail: this.mensaje, life:2000});
     }
 
     formPersona = new FormGroup({

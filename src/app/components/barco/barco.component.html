@@ -1,17 +1,18 @@
+<p-toast [style]="{marginTop: '50px'}"></p-toast>
 <div class="container-fluid">
   <h5 style="margin-top: 10px;">Edita la información:</h5>
 
   <form class="form-group row" [formGroup]="formBarco">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-3" style="margin-top: 10px;">
       <label for="nombre">Nombre</label>
       <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control" [(ngModel)]="formNombre" formControlName="nombre">
       <div class="alert alert-danger mt-2" [hidden]="nombre.valid || nombre.pristine">
         El nombre es obligatorio
       </div>
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-3" style="margin-top: 10px;">
       <label for="matricula">Matrícula</label>
-      <input type="text" name="matricula" id="matricula" placeholder="Matricula" class="form-control" [(ngModel)]="formMatricula" formControlName="matricula">
+      <input type="text" name="matricula" id="matricula" placeholder="AB123456" class="form-control" [(ngModel)]="formMatricula" formControlName="matricula">
       <div class="alert alert-danger mt-2" [hidden]="matricula.valid || matricula.pristine">
         <span *ngIf="matricula.errors?.['required']">
           La matrícula es obligatoria
@@ -21,37 +22,37 @@
         </span>
       </div>
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-3" style="margin-top: 10px;">
       <label for="atraque">Atraque</label>
       <input type="text" name="atraque" id="atraque" placeholder="Nº atraque" class="form-control" [(ngModel)]="formAtraque" formControlName="atraque">
       <div class="alert alert-danger mt-2" [hidden]="atraque.valid || atraque.pristine">
         El nº de atraque es obligatorio
       </div>
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-3" style="margin-top: 10px;">
       <label for="cuota">Cuota</label>
       <input type="text" name="cuota" id="cuota" placeholder="Cuota(€)" class="form-control" [(ngModel)]="formCuota" formControlName="cuota">
       <div class="alert alert-danger mt-2" [hidden]="cuota.valid || cuota.pristine">
         Indique la cuota
       </div>
     </div>
-    <div class="form-group col-md-3">
-      <select class="form-select" style="margin-top: 20px;" formControlName="propietario" [(ngModel)]="formPropietario">
-        <option value="" selected disabled>{{formPropietario.nombre}} {{formPropietario.apellidos}}</option>
+    <div class="form-group col-md-3" style="margin-top: 10px;">
+      <label for="propietario">Propietario seleccionado</label>
+      <select class="form-select" formControlName="propietario" [(ngModel)]="formPropietario" id="propietario">
+        <option [ngValue]="formPropietario" selected disabled>{{formPropietario.nombre}} {{formPropietario.apellidos}}</option>
         <option *ngFor="let p of personas" [ngValue]="p">
           {{p.nombre}} {{p.apellidos}}
         </option>
       </select>
     </div>
     <div class="col col-md-3">
-      <button type="submit" class="btn btn-success" style="margin-top: 20px;" [disabled]="formBarco.invalid" (click)="modificarBarco()">Aceptar cambios</button>
+      <button type="submit" class="btn btn-success" style="margin-top: 30px;" [disabled]="formBarco.invalid" (click)="modificarBarco()">Aceptar cambios</button>
     </div>
     <div class="col col-md-3">
-      <button class="btn btn-warning" style="margin-top: 20px;" (click)="descartar()">Descartar cambios</button>
+      <button class="btn btn-warning" style="margin-top: 30px;" (click)="descartar()">Descartar cambios</button>
     </div>
     <div class="col col-md-3">
-      <button class="btn btn-light" style="margin-top: 20px;" (click)="volver()">Volver</button>
+      <button class="btn btn-light" style="margin-top: 30px;" (click)="volver()">Volver</button>
     </div>
   </form>
 </div>
-<p-toast></p-toast>

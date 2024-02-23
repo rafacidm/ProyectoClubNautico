@@ -6,13 +6,13 @@
     </div>
     <ul class="nav navbar-nav navbar-center" style="text-align: center;">
       <li class="active">
-        <a routerLink='personas' class="nav-link">Personas</a>
+        <a routerLink='personas' class="nav-link"  *ngIf="logueado()">Personas</a>
       </li>
       <li class="active">
-        <a class="nav-link" routerLink="barcos">Barcos</a>
+        <a class="nav-link" routerLink="barcos"  *ngIf="logueado()">Barcos</a>
       </li>
       <li class="active">
-        <a class="nav-link" routerLink="salidas">Salidas</a>
+        <a class="nav-link" routerLink="salidas"  *ngIf="logueado()">Salidas</a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

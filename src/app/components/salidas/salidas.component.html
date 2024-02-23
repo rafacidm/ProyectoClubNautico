@@ -1,20 +1,22 @@
+<p-toast [style]="{marginTop: '50px'}"></p-toast>
 <div class="container-fluid">
     <h3 style="text-align: center; margin-top: 10px;">
         Registro con la información de salidas de las embarcaciones
     </h3>
+
     <h5>Añadir una nueva salida:</h5>
 
     <form class="form-group row" [formGroup]="formSalida">
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3" style="margin-top: 10px;">
           <label for="destino">Destino</label>
           <input type="text" name="destino" id="destino" placeholder="Destino" class="form-control" [(ngModel)]="formDestino" formControlName="destino">
           <div class="alert alert-danger mt-2" [hidden]="destino.valid || destino.pristine">
             Introduzca un destino
           </div>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3" style="margin-top: 10px;">
           <label for="fecha">Fecha</label>
-          <input type="text" name="fecha" id="fecha" placeholder="Fecha" class="form-control" [(ngModel)]="formFecha" formControlName="fecha">
+          <input type="text" name="fecha" id="fecha" placeholder="AAAA-MM-DD" class="form-control" [(ngModel)]="formFecha" formControlName="fecha">
           <div class="alert alert-danger mt-2" [hidden]="fecha.valid || fecha.pristine">
             <span *ngIf="fecha.errors?.['required']">
               Introduzca hora de salida
@@ -24,9 +26,9 @@
             </span>
           </div>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3" style="margin-top: 10px;">
             <label for="hora">Hora</label>
-            <input type="text" name="hora" id="hora" placeholder="Hora" class="form-control" [(ngModel)]="formHora" formControlName="hora">
+            <input type="text" name="hora" id="hora" placeholder="HH:MM" class="form-control" [(ngModel)]="formHora" formControlName="hora">
             <div class="alert alert-danger mt-2" [hidden]="hora.valid || hora.pristine">
               <span *ngIf="hora.errors?.['required']">
                 Introduzca hora de salida
@@ -36,24 +38,26 @@
               </span>
             </div>
           </div>
-      <div class="form-group col-md-3">
-        <select class="form-select" style="margin-top: 20px;" [(ngModel)]="formPatron" formControlName="patron">
-          <option value="" selected disabled>Selecciona patrón</option>
+      <div class="form-group col-md-3" style="margin-top: 10px;">
+        <label for="patron">Selecciona patrón</label>
+        <select class="form-select" [(ngModel)]="formPatron" formControlName="patron" id="patron">
+          <option [ngValue]="formPatron" selected disabled>Elige uno...</option>
           <option *ngFor="let p of personas" [ngValue]="p">
             {{p.nombre}} {{p.apellidos}}
             </option>
         </select>
       </div>
-      <div class="form-group col-md-3">
-        <select class="form-select" style="margin-top: 20px;" [(ngModel)]="formBarco" formControlName="barco">
-          <option value="" selected disabled>Selecciona embarcación</option>
+      <div class="form-group col-md-3" style="margin-top: 10px;">
+        <label for="barco">Selecciona embarcación</label>
+        <select class="form-select" [(ngModel)]="formBarco" formControlName="barco" id="barco">
+          <option [ngValue]="formBarco" selected disabled>Elige una...</option>
           <option *ngFor="let b of barcos" [ngValue]="b">
             {{b.nombre}}
             </option>
         </select>
       </div>
       <div class="col">
-        <button type="submit" class="btn btn-success" (click)="addSalida()" style="margin-top: 20px;" [disabled]="formSalida.invalid">Agregar salida</button>
+        <button type="submit" class="btn btn-success" (click)="addSalida()" style="margin-top: 30px;" [disabled]="formSalida.invalid">Agregar salida</button>
       </div>
     </form>
     <hr>

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,6 +26,9 @@ export class BarcoComponent implements OnInit{
   barco!:Barco;
   personas:Persona[] = [];
 
+  error!:HttpErrorResponse;
+  mensaje!:string;
+
   ngOnInit(): void {
     this.index=this.route.snapshot.params['id'];
     this.getInfoOriginal();
@@ -48,10 +52,10 @@ export class BarcoComponent implements OnInit{
         console.log("Se ha modificado: "  + response),
         this.router.navigate(["/barcos"]);
       },
-      error => {
-        this.messageService.add({severity:'error', summary:'ERROR', detail: 'hola'});
-      }
-    );
+      e  => {
+        this.error=e,
+        this.mostrarMensajeError(e.error.mensaje)
+      });
   }
 
   volver(){
@@ -69,6 +73,11 @@ export class BarcoComponent implements OnInit{
     this.formMatricula=this.barco.matricula;
     this.formNombre=this.barco.nombre;
     this.formPropietario=this.barco.persona;
+  }
+  
+  mostrarMensajeError(msj:String){
+    this.mensaje = msj.split('[')[1].split('for key')[0];
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: this.mensaje, life:2000});
   }
 
   formBarco = new FormGroup({

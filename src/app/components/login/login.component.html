@@ -1,15 +1,30 @@
+<p-toast [style]="{marginTop: '50px'}"></p-toast>
 <div class="container-fluid" style="text-align: center;">
-    <h2 style="text-align: left;">Inicio de sesión</h2>
+    <h2 style="text-align: left; margin-top: 20px;">Inicio de sesión</h2>
     <div>
-        <form #miFormulario="ngForm" (ngSubmit)="formLogIn()">
-            <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.username" type="text" name="username" placeholder="Nombre de usuario" class="form-control" ngModel>
+        <form #miFormulario="ngForm" [formGroup]="formLogin">
+            <div class="row justify-content-center">
+                <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
+                    <label for="username">Introduzca su nombre de usuario:</label>
+                    <input [(ngModel)]="usuario.username" type="text" name="username" placeholder="Nombre de usuario" class="form-control" formControlName="username">
+                    <div class="alert alert-danger mt-2" [hidden]="username.valid || username.pristine">
+                        El nombre de usuario es obligatorio
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
-                <input [(ngModel)]="usuario.password" type="password" name="password" placeholder="Contraseña" class="form-control" ngModel>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
+                    <label for="password">Introduzca su contraseña:</label>
+                    <input [(ngModel)]="usuario.password" type="password" name="password" placeholder="Contraseña" class="form-control" formControlName="password">
+                    <div class="alert alert-danger mt-2" [hidden]="password.valid || password.pristine">
+                        La contraseña es obligatoria
+                    </div>
+                </div>
             </div>
-            <div style="margin-top: 20px; margin-left: 10px;">
-                <button type="submit" class="btn btn-success">Iniciar sesión</button>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-6" style="margin-top: 20px; margin-left: 10px;">
+                    <button type="submit" class="btn btn-success" (click)="iniciarSesion()" [disabled]="formLogin.invalid">Iniciar sesión</button>
+                </div>
             </div>
         </form>
     </div>

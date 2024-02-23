@@ -4,6 +4,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-persona',
@@ -22,6 +23,9 @@ export class PersonaComponent implements OnInit{
   persona!:Persona;
   index!:number;
 
+  error!:HttpErrorResponse;
+  mensaje!:string;
+
   ngOnInit(): void {
     this.index=this.route.snapshot.params['id'];
     this.getInfoOriginal();
@@ -38,10 +42,10 @@ export class PersonaComponent implements OnInit{
         console.log("Se ha modificado: "  + response),
         this.router.navigate(["/personas"])
       },
-      error => {
-        this.messageService.add({severity:'error', summary:'ERROR', detail: 'hola'});
-      }
-      );
+      e  => {
+        this.error=e,
+        this.mostrarMensajeError(e.error.mensaje)
+      });
   }
 
   volver(){
@@ -50,6 +54,11 @@ export class PersonaComponent implements OnInit{
 
   descartar(){
     this.getInfoOriginal();
+  }
+
+  mostrarMensajeError(msj:String){
+    this.mensaje = msj.split('[')[1].split('for key')[0];
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: this.mensaje, life:2000});
   }
 
   getInfoOriginal(){

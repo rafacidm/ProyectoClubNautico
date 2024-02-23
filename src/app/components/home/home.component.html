@@ -1,1 +1,14 @@
-<p>home works!</p>
+<div class="container-fluid">
+    <p-toast position="top-right"></p-toast>
+      <h3 style="text-align: center; margin-top: 10px;">
+          ¡Bienvenido al software de gestión del Club Náutico!
+      </h3>
+      <div *ngIf="!logueado()">
+        Por favor, inicie sesión o regístrese para acceder a los datos:
+        <app-login></app-login>
+        <hr>
+        <app-signup></app-signup>
+      </div>
+      <br>
+        <h5 *ngIf="logueado()">Estás identificado como usuario {{username}}, ya puedes navegar por la aplicación.</h5>
+</div>

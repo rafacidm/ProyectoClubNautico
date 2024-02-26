@@ -92,8 +92,8 @@ export class BarcosComponent implements OnInit{
   formBarco = new FormGroup({
     'matricula' : new FormControl('', [Validators.required, Validators.pattern('[A-Z]{2}[0-9]{6}')]),
     'nombre' : new FormControl('', Validators.required),
-    'atraque' : new FormControl('', Validators.required),
-    'cuota' : new FormControl('', Validators.required),
+    'atraque' : new FormControl('', [Validators.required, Validators.min(100), Validators.max(799)]),
+    'cuota' : new FormControl('', [Validators.required, Validators.min(100), Validators.max(1999)]),
     'propietario' : new FormControl('', Validators.required)
   })
 

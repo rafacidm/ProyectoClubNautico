@@ -28,14 +28,30 @@
           <label for="atraque">Atraque</label>
           <input type="number" name="atraque" id="atraque" placeholder="Nº atraque" class="form-control" [(ngModel)]="formAtraque" formControlName="atraque">
           <div class="alert alert-danger mt-2" [hidden]="atraque.valid || atraque.pristine">
-            El nº de atraque es obligatorio
+            <span *ngIf="atraque.errors?.['required']">
+              El nº de atraque es obligatorio
+            </span>
+            <span *ngIf="atraque.errors?.['min']">
+              El atraque debe ser un valor entre 100 y 799
+            </span>
+            <span *ngIf="atraque.errors?.['max']">
+              El atraque debe ser un valor entre 100 y 799
+            </span>
           </div>
         </div>
         <div class="form-group col-md-3" style="margin-top: 10px;">
           <label for="cuota">Cuota</label>
           <input type="number" name="cuota" id="cuota" placeholder="Cuota(€)" class="form-control" [(ngModel)]="formCuota" formControlName="cuota">
           <div class="alert alert-danger mt-2" [hidden]="cuota.valid || cuota.pristine">
-            Indique la cuota
+            <span *ngIf="cuota.errors?.['required']">
+              La cuota es obligatoria
+            </span>
+            <span *ngIf="cuota.errors?.['min']">
+              La cuota debe ser un valor entre 100 y 1999
+            </span>
+            <span *ngIf="cuota.errors?.['max']">
+              La cuota debe ser un valor entre 100 y 1999
+            </span>
           </div>
         </div>
         <div class="form-group col-md-3" style="margin-top: 10px;">
